@@ -1,0 +1,3 @@
+This file marks a repository that has not been renamed from the template yet.
+.github/workflows/template-init.yml runs scripts/rename.sh on the first push of a repository created with
+"Use this template", and the script deletes this file. Delete both files to opt out.

@@ -1,0 +1,11 @@
+TEAM_ID=
+
+PRODUCT_NAME=KmpTemplate
+// One id for Android and iOS (app.basePackage); fastlane reads it from here.
+PRODUCT_BUNDLE_IDENTIFIER=com.yet.template
+
+CURRENT_PROJECT_VERSION=1
+MARKETING_VERSION=1.0
+
+// SQLDelight's native driver links the system SQLite (the SharedUI framework is static).
+OTHER_LDFLAGS=$(inherited) -lsqlite3

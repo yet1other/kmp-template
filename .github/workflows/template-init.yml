@@ -1,0 +1,66 @@
+name: Template init
+
+# A repository created with "Use this template" gets the KMP wizard's renaming on its first push:
+#   repository  acme/cool-notes  ->  package com.acme.coolnotes, project CoolNotes, display name "Cool Notes".
+# Override the defaults with repository variables APP_PACKAGE, APP_NAME, APP_DISPLAY_NAME and re-run, or run
+# scripts/rename.sh locally at any time. The job does nothing once .github/template-init is gone.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  init:
+    # Never in the template repository itself.
+    if: ${{ !github.event.repository.is_template && github.event.repository.name != 'kmp-template' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Check whether the project is still the template
+        id: marker
+        run: |
+          if [ -f .github/template-init ]; then echo "pending=true" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Derive names from the repository
+        if: steps.marker.outputs.pending == 'true'
+        id: names
+        env:
+          OWNER: ${{ github.repository_owner }}
+          REPO: ${{ github.event.repository.name }}
+          APP_PACKAGE: ${{ vars.APP_PACKAGE }}
+          APP_NAME: ${{ vars.APP_NAME }}
+          APP_DISPLAY_NAME: ${{ vars.APP_DISPLAY_NAME }}
+        run: |
+          segment() {  # a valid package segment: lowercase letters and digits, starting with a letter
+            local s; s=$(echo "$1" | tr '[:upper:]' '[:lower:]' | tr -cd 'a-z0-9')
+            [[ "$s" =~ ^[a-z] ]] || s="app$s"
+            echo "$s"
+          }
+          words=$(echo "$REPO" | sed -E 's/([a-z0-9])([A-Z])/\1 \2/g; s/[^A-Za-z0-9]+/ /g')
+          pascal=$(for w in $words; do printf '%s' "$(echo "${w:0:1}" | tr '[:lower:]' '[:upper:]')${w:1}"; done)
+          [[ "$pascal" =~ ^[A-Z] ]] || pascal="App$pascal"
+          display=$(for w in $words; do printf '%s ' "$(echo "${w:0:1}" | tr '[:lower:]' '[:upper:]')${w:1}"; done)
+          echo "package=${APP_PACKAGE:-com.$(segment "$OWNER").$(segment "$REPO")}" >> "$GITHUB_OUTPUT"
+          echo "name=${APP_NAME:-$pascal}" >> "$GITHUB_OUTPUT"
+          echo "display=${APP_DISPLAY_NAME:-${display% }}" >> "$GITHUB_OUTPUT"
+
+      - name: Rename the project
+        if: steps.marker.outputs.pending == 'true'
+        run: >
+          scripts/rename.sh "${{ steps.names.outputs.package }}"
+          "${{ steps.names.outputs.name }}" "${{ steps.names.outputs.display }}"
+
+      - name: Commit
+        if: steps.marker.outputs.pending == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Initialize ${{ steps.names.outputs.name }} from the KMP template"
+          git push

@@ -1,0 +1,14 @@
+CREATE TABLE NoteEntity (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    text TEXT NOT NULL,
+    created_at INTEGER NOT NULL
+);
+
+selectAll:
+SELECT * FROM NoteEntity ORDER BY created_at DESC, id DESC;
+
+insert:
+INSERT INTO NoteEntity(text, created_at) VALUES (?, ?);
+
+deleteById:
+DELETE FROM NoteEntity WHERE id = ?;

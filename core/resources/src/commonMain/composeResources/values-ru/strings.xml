@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">KMP Template</string>
+    <string name="home_title">Заметки</string>
+    <string name="home_input_hint">Напишите заметку</string>
+    <string name="home_add">Добавить</string>
+    <string name="home_empty">Заметок пока нет</string>
+    <string name="home_delete">Удалить</string>
+</resources>

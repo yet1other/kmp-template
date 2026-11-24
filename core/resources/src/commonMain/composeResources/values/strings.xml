@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">KMP Template</string>
+    <string name="home_title">Notes</string>
+    <string name="home_input_hint">Write a note</string>
+    <string name="home_add">Add</string>
+    <string name="home_empty">No notes yet</string>
+    <string name="home_delete">Delete</string>
+</resources>

@@ -1,0 +1,122 @@
+[versions]
+agp = "9.5.2"
+android-compileSdk = "37"
+android-minSdk = "24"
+android-targetSdk = "37"
+
+androidx-activity = "1.13.0"
+androidx-lifecycle = "2.11.0"
+turbine = "1.2.1"
+
+kotlin = "2.4.21"
+composeMultiplatform = "1.12.2"
+material3 = "1.12.0-alpha03"
+material3Adaptive = "1.3.0"
+
+metro = "1.6.0"
+
+kotlinx-coroutines = "1.11.0"
+kotlinxDatetime = "0.8.0"
+kotlinxSerializationJson = "1.13.0"
+
+decompose = "3.6.2"
+essenty = "2.7.1"
+mvi = "4.4.0"
+
+sqldelight = "2.4.1"
+kermit = "2.2.0"
+
+[libraries]
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
+androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+
+#compose
+compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatform" }
+compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "composeMultiplatform" }
+compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatform" }
+compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "material3" }
+compose-material3-adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive", version.ref = "material3Adaptive" }
+compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatform" }
+compose-uiTooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "composeMultiplatform" }
+compose-uiToolingPreview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "composeMultiplatform" }
+
+#decompose
+decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
+decompose-compose = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose" }
+essenty-lifecycle = { module = "com.arkivanov.essenty:lifecycle", version.ref = "essenty" }
+essenty-stateKeeper = { module = "com.arkivanov.essenty:state-keeper", version.ref = "essenty" }
+essenty-instanceKeeper = { module = "com.arkivanov.essenty:instance-keeper", version.ref = "essenty" }
+essenty-backHandler = { module = "com.arkivanov.essenty:back-handler", version.ref = "essenty" }
+
+#mvi-kotlin
+mvikotlin = { module = "com.arkivanov.mvikotlin:mvikotlin", version.ref = "mvi" }
+mvikotlin-main = { module = "com.arkivanov.mvikotlin:mvikotlin-main", version.ref = "mvi" }
+mvikotlin-logging = { module = "com.arkivanov.mvikotlin:mvikotlin-logging", version.ref = "mvi" }
+mvikotlin-timetravel = { module = "com.arkivanov.mvikotlin:mvikotlin-timetravel", version.ref = "mvi" }
+mvikotlin-extensions-coroutines = { module = "com.arkivanov.mvikotlin:mvikotlin-extensions-coroutines", version.ref = "mvi" }
+
+#kotlinx
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+
+#sqldelight
+sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
+sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
+sqldelight-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
+sqldelight-async-extensions = { module = "app.cash.sqldelight:async-extensions", version.ref = "sqldelight" }
+
+kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+
+#test
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+kotlin-test-annotations = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "kotlin" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+
+#build-logic
+android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+compose-gradlePlugin = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "composeMultiplatform" }
+compose-compiler-gradlePlugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
+sqldelight-gradlePlugin = { module = "app.cash.sqldelight:gradle-plugin", version.ref = "sqldelight" }
+
+[bundles]
+decompose = [
+    "decompose",
+    "essenty-lifecycle",
+    "essenty-stateKeeper",
+    "essenty-instanceKeeper",
+    "essenty-backHandler",
+]
+mvi = [
+    "mvikotlin",
+    "mvikotlin-main",
+    "mvikotlin-logging",
+    "mvikotlin-timetravel",
+    "mvikotlin-extensions-coroutines",
+]
+testing = [
+    "kotlin-test",
+    "kotlin-test-annotations",
+    "kotlinx-coroutines-test",
+    "turbine",
+]
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+metro = { id = "dev.zacsweers.metro", version.ref = "metro" }
+sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
+
+# build-logic/convention
+local-kotlin-multiplatform = { id = "com.plugins.kotlinMultiplatformPlugin" }
+local-compose-multiplatform = { id = "com.plugins.composeMultiplatform" }
+local-feature = { id = "com.plugins.feature" }
+local-sqlDelight = { id = "com.plugins.sqldelight" }
